@@ -20,4 +20,10 @@ public class ClientInit {
         public void addLayers(EntityRenderersEvent.AddLayers e) {
             e.getSkins().forEach(skin -> {
                 var r = e.getSkin(skin);
-                if (r insta
+                if (r instanceof PlayerRenderer pr) {
+                    pr.addLayer(new SpriteWingsLayer(pr));
+                }
+            });
+        }
+    }
+}
