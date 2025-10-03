@@ -7,37 +7,36 @@ group = 'com.yourname'
 version = '1.0.0'
 archivesBaseName = 'feur_shadow_elytra'
 
-java {
-    toolchain { languageVersion = JavaLanguageVersion.of(17) }
-}
+java { toolchain { languageVersion = JavaLanguageVersion.of(17) } }
 
-minecraft {
-    mappings channel: 'official', version: '1.20.1'
-}
+minecraft { mappings channel: 'official', version: '1.20.1' }
 
 repositories {
+    mavenLocal()
     mavenCentral()
-    maven { url = "https://maven.theillusivec4.top/" }
+    maven { url = "https://maven.minecraftforge.net" }
+    maven {
+        url = "https://maven.theillusivec4.top/"
+        content { includeGroup "top.theillusivec4.curios" }
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.6+1.20.1")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.6+1.20.1")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.7+1.20.1")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.7+1.20.1")
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 
 jar {
     manifest {
-        attributes([
+        attributes(
             "Specification-Title": "feur_shadow_elytra",
             "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": project.version
-        ])
+        )
     }
 }
