@@ -2,28 +2,26 @@ package com.yourname.feurshadowelytra;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 
 public class ClientInit {
     public static void register() {
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientOnly::init);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+            bus.addListener(ClientInit::onAddLayers);
+        });
     }
 
-    private static class ClientOnly {
-        static void init() { MinecraftForge.EVENT_BUS.register(new ClientOnly()); }
-
-        @SubscribeEvent
-        public void addLayers(EntityRenderersEvent.AddLayers e) {
-            e.getSkins().forEach(skin -> {
-                var r = e.getSkin(skin);
-                if (r instanceof PlayerRenderer pr) {
-                    pr.addLayer(new SpriteWingsLayer(pr));
-                }
-            });
+    private static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+        for (String skin : event.getSkins()) {
+            PlayerRenderer renderer = event.getSkin(skin);
+            if (renderer != null) {
+                renderer.addLayer(new SpriteWingsLayer(renderer));
+            }
         }
     }
 }
