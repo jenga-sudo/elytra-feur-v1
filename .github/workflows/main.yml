@@ -1,0 +1,78 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Ensure Gradle (wrapper or sdkman)
+        run: |
+          if [ -f ./gradlew ]; then
+            chmod +x ./gradlew
+            echo "Using Gradle Wrapper"
+            ./gradlew --version
+          else
+            echo "Wrapper not found. Installing Gradle 8.8 via SDKMAN..."
+            sudo apt-get update -y
+            sudo apt-get install -y zip unzip curl
+            curl -s "https://get.sdkman.io" | bash
+            source "$HOME/.sdkman/bin/sdkman-init.sh"
+            sdk install gradle 8.8
+            gradle --version
+          fi
+
+      - name: Build
+        run: |
+          if [ -f ./gradlew ]; then
+            ./gradlew --no-daemon build
+          else
+            gradle --no-daemon build
+          fi
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: feur-shadow-elytra-jars
+          path: build/libs/*.jar
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: feur-shadow-elytra-jars
+          path: dist
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
