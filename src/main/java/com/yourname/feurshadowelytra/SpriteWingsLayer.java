@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
@@ -19,10 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+public class SpriteWingsLayer extends RenderLayer<net.minecraft.client.player.AbstractClientPlayer, PlayerModel<net.minecraft.client.player.AbstractClientPlayer>> {
     private final Map<String,String> map;
 
-    public SpriteWingsLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent) {
+    public SpriteWingsLayer(RenderLayerParent<net.minecraft.client.player.AbstractClientPlayer, PlayerModel<net.minecraft.client.player.AbstractClientPlayer>> parent) {
         super(parent);
         Map<String,String> tmp;
         try (var is = SpriteWingsLayer.class.getResourceAsStream("/assets/feur_shadow_elytra/elytra_textures.json")) {
@@ -35,7 +34,7 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
 
     @Override
     public void render(PoseStack pose, MultiBufferSource buf, int light,
-                       AbstractClientPlayer p, float limb, float limbAmount, float partial,
+                       net.minecraft.client.player.AbstractClientPlayer p, float limb, float limbAmount, float partial,
                        float age, float headYaw, float headPitch) {
 
         ItemStack chest = p.getInventory().armor.get(2);
