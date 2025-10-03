@@ -6,8 +6,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-
 public class ClientInit {
     public static void register() {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
@@ -18,9 +16,9 @@ public class ClientInit {
 
     private static void onAddLayers(EntityRenderersEvent.AddLayers event) {
         for (String skin : event.getSkins()) {
-            PlayerRenderer renderer = event.getSkin(skin);
-            if (renderer != null) {
-                renderer.addLayer(new SpriteWingsLayer(renderer));
+            net.minecraft.client.renderer.entity.player.PlayerRenderer r = event.getSkin(skin);
+            if (r != null) {
+                r.addLayer(new SpriteWingsLayer(r));
             }
         }
     }
