@@ -38,7 +38,8 @@ public class SpriteWingsLayer extends RenderLayer<net.minecraft.client.player.Ab
                        float age, float headYaw, float headPitch) {
 
         ItemStack chest = p.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST);
-        if (chest.isEmpty() || !(chest.getItem() instanceof ElytraItem)) return;
+        boolean wearingChestElytra = !chest.isEmpty() && (chest.getItem() instanceof ElytraItem);
+        if (!wearingChestElytra) return;
 
         String id = chest.getItem().builtInRegistryHolder().key().location().toString();
         String texName = map.get(id);
@@ -48,21 +49,22 @@ public class SpriteWingsLayer extends RenderLayer<net.minecraft.client.player.Ab
         VertexConsumer vc = buf.getBuffer(RenderType.entityCutoutNoCull(tex));
 
         pose.pushPose();
-        pose.translate(0.0F, 0.6F, 0.12F);
+        pose.translate(0.0F, 0.95F, 0.35F);
+        pose.scale(1.25F, 1.25F, 1.25F);
 
-        float wingWidth  = 0.9F;
-        float wingHeight = 1.0F;
+        float wingWidth  = 1.2F;
+        float wingHeight = 1.4F;
         float z = 0.0F;
 
         pose.pushPose();
-        pose.translate(0.26F, -0.42F, z);
-        pose.mulPose(Axis.YP.rotationDegrees(30.0F));
+        pose.translate(0.34F, -0.65F, z);
+        pose.mulPose(Axis.YP.rotationDegrees(35.0F));
         drawQuad(pose, vc, light, -wingWidth, 0.0F, 0.0F, z, 0.0F, 0.0F, 1.0F, 1.0F, wingHeight);
         pose.popPose();
 
         pose.pushPose();
-        pose.translate(-0.26F, -0.42F, z);
-        pose.mulPose(Axis.YN.rotationDegrees(30.0F));
+        pose.translate(-0.34F, -0.65F, z);
+        pose.mulPose(Axis.YN.rotationDegrees(35.0F));
         drawQuadMirroredU(pose, vc, light, 0.0F, 0.0F, wingWidth, z, 0.0F, 0.0F, 1.0F, 1.0F, wingHeight);
         pose.popPose();
 
