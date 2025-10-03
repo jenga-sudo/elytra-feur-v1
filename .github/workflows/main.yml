@@ -19,7 +19,7 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Cache Gradle
+      - name: Cache Gradle user home
         uses: actions/cache@v4
         with:
           path: |
@@ -29,29 +29,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Ensure Gradle (wrapper or sdkman)
+      - name: Install Gradle 8.8 (no wrapper)
         run: |
-          if [ -f ./gradlew ]; then
-            chmod +x ./gradlew
-            echo "Using Gradle Wrapper"
-            ./gradlew --version
-          else
-            echo "Wrapper not found. Installing Gradle 8.8 via SDKMAN..."
-            sudo apt-get update -y
-            sudo apt-get install -y zip unzip curl
-            curl -s "https://get.sdkman.io" | bash
-            source "$HOME/.sdkman/bin/sdkman-init.sh"
-            sdk install gradle 8.8
-            gradle --version
-          fi
+          set -e
+          sudo apt-get update -y
+          sudo apt-get install -y unzip curl
+          curl -L -o gradle-8.8-bin.zip https://services.gradle.org/distributions/gradle-8.8-bin.zip
+          unzip -q gradle-8.8-bin.zip
+          echo "$PWD/gradle-8.8/bin" >> $GITHUB_PATH
+          gradle --version
 
       - name: Build
-        run: |
-          if [ -f ./gradlew ]; then
-            ./gradlew --no-daemon build
-          else
-            gradle --no-daemon build
-          fi
+        run: gradle --no-daemon build
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
@@ -76,3 +65,4 @@ jobs:
           files: dist/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
