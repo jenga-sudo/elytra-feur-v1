@@ -91,3 +91,4 @@ public class SpriteWingsLayer extends RenderLayer<net.minecraft.client.player.Ab
         vc.vertex(m, x1, y1 + height, z).color(1f,1f,1f,1f).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n, 0,0,1).endVertex();
     }
 }
+
