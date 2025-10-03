@@ -46,11 +46,10 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
             Class<?> curiosApi = Class.forName("top.theillusivec4.curios.api.CuriosApi");
             Method getHelper = curiosApi.getMethod("getCuriosHelper");
             Object helper = getHelper.invoke(null);
-
             Method findFirstCurio = helper.getClass().getMethod(
                     "findFirstCurio",
                     net.minecraft.world.entity.LivingEntity.class,
-                    Predicate.class
+                    java.util.function.Predicate.class
             );
             @SuppressWarnings("unchecked")
             Optional<?> res = (Optional<?>) findFirstCurio.invoke(helper, p, (Predicate<ItemStack>) SpriteWingsLayer::isElytraLike);
@@ -75,41 +74,41 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
         }
         if (src.isEmpty() || !isElytraLike(src)) return;
 
-        String texName = pickTexture(src);
-        ResourceLocation tex = new ResourceLocation(FeurShadowElytra.MODID, "textures/wings/" + texName);
+        ResourceLocation tex = new ResourceLocation(FeurShadowElytra.MODID, "textures/wings/wing3.png");
         VertexConsumer vc = buf.getBuffer(RenderType.entityCutoutNoCull(tex));
 
         pose.pushPose();
         this.getParentModel().body.translateAndRotate(pose);
 
-        pose.translate(0.0F, -0.05F, 0.16F);
-        pose.scale(1.05F, 1.05F, 1.05F);
+        if (p.isCrouching()) {
+            pose.translate(0.0F, 0.2F, 0.1F);
+            pose.mulPose(Axis.XP.rotationDegrees(10.0F));
+        }
 
-        float w = 0.95F, h = 1.15F, z = 0.0F;
-
-        pose.pushPose();
-        pose.translate(0.30F, -0.52F, z);
-        pose.mulPose(Axis.YP.rotationDegrees(14.0F));
-        quad(pose, vc, light, -w, 0.0F, 0.0F, z, 0.0F, 0.0F, 1.0F, 1.0F, h);
-        pose.popPose();
+        float w = 1.25F;
+        float h = 1.75F;
+        float z = 0.02F;
 
         pose.pushPose();
-        pose.translate(-0.30F, -0.52F, z);
-        pose.mulPose(Axis.YN.rotationDegrees(14.0F));
-        quadMirrorU(pose, vc, light, 0.0F, 0.0F, w, z, 0.0F, 0.0F, 1.0F, 1.0F, h);
+        pose.translate(0.38F, -0.68F, 0.18F + z);
+        pose.mulPose(Axis.YP.rotationDegrees(18.0F));
+        quad(pose, vc, light, -w, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, h);
+        pose.popPose();
+
+        pose.pushPose();
+        pose.translate(-0.38F, -0.68F, 0.18F + z);
+        pose.mulPose(Axis.YN.rotationDegrees(18.0F));
+        quadMirrorU(pose, vc, light, 0.0F, 0.0F, w, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, h);
         pose.popPose();
 
         pose.popPose();
-    }
-
-    private static String pickTexture(ItemStack src) {
-        return "wing3.png";
     }
 
     private static void quad(PoseStack p, VertexConsumer v, int light,
                              float x1, float y1, float x2, float z,
                              float u1, float v1, float u2, float v2, float h) {
-        var m = p.last().pose(); var n = p.last().normal();
+        var m = p.last().pose();
+        var n = p.last().normal();
         v.vertex(m, x1, y1, z).color(1,1,1,1).uv(u1,v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n,0,0,1).endVertex();
         v.vertex(m, x2, y1, z).color(1,1,1,1).uv(u2,v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n,0,0,1).endVertex();
         v.vertex(m, x2, y1+h, z).color(1,1,1,1).uv(u2,v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n,0,0,1).endVertex();
@@ -119,7 +118,8 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
     private static void quadMirrorU(PoseStack p, VertexConsumer v, int light,
                                     float x1, float y1, float x2, float z,
                                     float u1, float v1, float u2, float v2, float h) {
-        var m = p.last().pose(); var n = p.last().normal();
+        var m = p.last().pose();
+        var n = p.last().normal();
         v.vertex(m, x1, y1, z).color(1,1,1,1).uv(u2,v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n,0,0,1).endVertex();
         v.vertex(m, x2, y1, z).color(1,1,1,1).uv(u1,v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n,0,0,1).endVertex();
         v.vertex(m, x2, y1+h, z).color(1,1,1,1).uv(u1,v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(n,0,0,1).endVertex();
