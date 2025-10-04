@@ -12,7 +12,6 @@ public class CurioElytraItem extends ElytraItem implements ICurioItem {
         super(properties);
     }
 
-    // Curios 5.x no longer uses SlotContext, just LivingEntity
     @Override
     public boolean canEquip(ItemStack stack, LivingEntity entity) {
         return true;
