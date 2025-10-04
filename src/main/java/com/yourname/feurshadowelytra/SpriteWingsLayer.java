@@ -30,6 +30,7 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
 
     private static final TagKey<Item> TAG_FORGE_ELYTRA = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "elytra"));
     private static final TagKey<Item> TAG_CURIOS_ELYTRA = TagKey.create(Registries.ITEM, new ResourceLocation("curios", "elytra"));
+    private static final ResourceLocation FALLBACK_TEX = new ResourceLocation(FeurShadowElytra.MODID, "textures/wings/_placeholder.png");
 
     public SpriteWingsLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent) {
         super(parent);
@@ -41,7 +42,7 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
         if (stack.isEmpty()) return;
 
         ResourceLocation tex = textureFor(stack);
-        if (tex == null) return;
+        if (tex == null) tex = FALLBACK_TEX;
 
         pose.pushPose();
         pose.translate(0.0D, 0.95D, 0.22D);
@@ -114,10 +115,14 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
     }
 
     private static ResourceLocation textureFor(ItemStack stack) {
-        ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        if (key == null) return null;
-        String path = key.getPath().toLowerCase(java.util.Locale.ROOT);
-        path = path.replace("_wings_chestplate", "").replace("_chestplate", "").replace("_wings_item", "").replace("_wings", "");
-        return new ResourceLocation("feur_shadow_elytra", "textures/wings/" + path + ".png");
+        try {
+            ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+            if (key == null) return FALLBACK_TEX;
+            String path = key.getPath().toLowerCase(Locale.ROOT);
+            path = path.replace("_wings_chestplate", "").replace("_chestplate", "").replace("_wings_item", "").replace("_wings", "");
+            return new ResourceLocation(FeurShadowElytra.MODID, "textures/wings/" + path + ".png");
+        } catch (Throwable t) {
+            return FALLBACK_TEX;
+        }
     }
 }
