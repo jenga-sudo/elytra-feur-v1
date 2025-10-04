@@ -1,21 +1,21 @@
 {
   "replace": false,
   "values": [
-    "feur_shadow_elytra:princess",
-    "feur_shadow_elytra:phoenix",
-    "feur_shadow_elytra:angel",
-    "feur_shadow_elytra:black_dragon",
-    "feur_shadow_elytra:white_dragon",
-    "feur_shadow_elytra:steam",
-    "feur_shadow_elytra:leaf",
-    "feur_shadow_elytra:fairy",
-    "feur_shadow_elytra:parrot",
-    "feur_shadow_elytra:owl",
-    "feur_shadow_elytra:river",
-    "feur_shadow_elytra:light",
-    "feur_shadow_elytra:fire",
-    "feur_shadow_elytra:western",
-    "feur_shadow_elytra:rainbow",
-    "feur_shadow_elytra:flowering"
+    "feur_shadow_elytra:princess_elytra",
+    "feur_shadow_elytra:phoenix_elytra",
+    "feur_shadow_elytra:angel_elytra",
+    "feur_shadow_elytra:black_dragon_elytra",
+    "feur_shadow_elytra:white_dragon_elytra",
+    "feur_shadow_elytra:steam_elytra",
+    "feur_shadow_elytra:leaf_elytra",
+    "feur_shadow_elytra:fairy_elytra",
+    "feur_shadow_elytra:parrot_elytra",
+    "feur_shadow_elytra:owl_elytra",
+    "feur_shadow_elytra:river_elytra",
+    "feur_shadow_elytra:light_elytra",
+    "feur_shadow_elytra:fire_elytra",
+    "feur_shadow_elytra:western_elytra",
+    "feur_shadow_elytra:rainbow_elytra",
+    "feur_shadow_elytra:flowering_elytra"
   ]
 }

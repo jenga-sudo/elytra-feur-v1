@@ -1,13 +1,14 @@
 modLoader="javafml"
 loaderVersion="[47,)"
-license="All Rights Reserved"
-
+license="MIT"
+issueTrackerURL=""
 [[mods]]
 modId="feur_shadow_elytra"
 version="1.0.0"
 displayName="Feur Shadow Elytra"
+displayURL=""
 authors="you"
-description="Elytra-type wing items."
+description='''Adds multiple Elytra variants using wing sprites.'''
 
 [[dependencies.feur_shadow_elytra]]
 modId="forge"
