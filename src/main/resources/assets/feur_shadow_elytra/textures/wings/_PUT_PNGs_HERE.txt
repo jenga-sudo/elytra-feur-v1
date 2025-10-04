@@ -1,0 +1,1 @@
+Drop your 16 wing sprite PNGs here using the exact names: princess, phoenix, angel, black_dragon, white_dragon, steam, leaf, fairy, parrot, owl, river, light, fire, western, rainbow, flowering.png

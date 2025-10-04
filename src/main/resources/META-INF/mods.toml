@@ -1,10 +1,24 @@
 modLoader="javafml"
 loaderVersion="[47,)"
 license="All Rights Reserved"
+
 [[mods]]
 modId="feur_shadow_elytra"
 version="1.0.0"
 displayName="Feur Shadow Elytra"
-credits=""
-authors=""
-description=""
+authors="you"
+description="Elytra-type wing items."
+
+[[dependencies.feur_shadow_elytra]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.feur_shadow_elytra]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
