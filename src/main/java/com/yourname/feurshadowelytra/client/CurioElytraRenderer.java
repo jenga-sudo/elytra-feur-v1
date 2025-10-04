@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
-import top.theillusivec4.curios.api.client.SlotContext;
 
 public class CurioElytraRenderer implements ICurioRenderer {
 
@@ -22,7 +21,7 @@ public class CurioElytraRenderer implements ICurioRenderer {
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(
             ItemStack stack,
-            SlotContext slotContext,
+            T entity,
             PoseStack poseStack,
             RenderLayerParent<T, M> renderLayerParent,
             MultiBufferSource buffer,
@@ -34,16 +33,14 @@ public class CurioElytraRenderer implements ICurioRenderer {
             float netHeadYaw,
             float headPitch) {
 
-        T entity = slotContext.entity(); // 타입 명확화
-        ElytraModel<T> model = new ElytraModel<>(renderLayerParent.getModel().root().getChild("body"));
+        ElytraModel<T> model = new ElytraModel<>(renderLayerParent.getModel());
         renderLayerParent.getModel().copyPropertiesTo(model);
 
-        // 실제 렌더링 코드 예시 (텍스처 적용 등)
         model.renderToBuffer(
                 poseStack,
                 buffer.getBuffer(model.renderType(texture)),
                 light,
-                net.minecraft.client.renderer.entity.layers.ElytraLayer.NO_OVERLAY,
+                net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY,
                 1.0F, 1.0F, 1.0F, 1.0F
         );
     }
