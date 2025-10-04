@@ -1,25 +1,20 @@
 package com.yourname.feurshadowelytra;
 
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = "feur_shadow_elytra", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientInit {
-    public static void register() {
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-            bus.addListener(ClientInit::onAddLayers);
-        });
-    }
-
-    private static void onAddLayers(EntityRenderersEvent.AddLayers event) {
-        for (String skin : event.getSkins()) {
-            net.minecraft.client.renderer.entity.player.PlayerRenderer r = event.getSkin(skin);
-            if (r != null) {
-                r.addLayer(new SpriteWingsLayer(r));
-            }
-        }
+    @SubscribeEvent
+    public static void onAddLayers(EntityRenderersEvent.AddLayers e) {
+        PlayerRenderer r1 = e.getSkin("default");
+        if (r1 != null) r1.addLayer(new SpriteWingsLayer(r1));
+        PlayerRenderer r2 = e.getSkin("slim");
+        if (r2 != null) r2.addLayer(new SpriteWingsLayer(r2));
     }
 }
