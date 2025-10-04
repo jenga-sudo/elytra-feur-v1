@@ -7,3 +7,10 @@ version="1.0.0"
 displayName="Feur Shadow Elytra"
 description="Adds 16 custom Elytra wings"
 authors="yourname"
+
+[[dependencies.feur_shadow_elytra]]
+modId="curios"
+mandatory=false
+versionRange="[5.4.5,)"
+ordering="AFTER"
+side="BOTH"

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "size": 1,
+  "order": 100,
+  "icon": "curios:slot/elytra",
+  "add_cosmetic": false,
+  "use_native_texture": true,
+  "render_toggle": true,
+  "drop_rule": "default"
+}
