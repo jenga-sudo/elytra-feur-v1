@@ -116,7 +116,7 @@ public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerMo
     private static ResourceLocation textureFor(ItemStack stack) {
         ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
         if (key == null) return null;
-        String path = key.getPath().toLowerCase(Locale.ROOT);
+        String path = key.getPath().toLowerCase(java.util.Locale.ROOT);
         path = path.replace("_wings_chestplate", "").replace("_chestplate", "").replace("_wings_item", "").replace("_wings", "");
         return new ResourceLocation("feur_shadow_elytra", "textures/wings/" + path + ".png");
     }

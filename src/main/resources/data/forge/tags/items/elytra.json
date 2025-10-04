@@ -1,21 +1,21 @@
 {
   "replace": false,
   "values": [
-    "feur_shadow_elytra:princess_wings",
-    "feur_shadow_elytra:phoenix_wings",
-    "feur_shadow_elytra:angel_wings",
-    "feur_shadow_elytra:black_dragon_wings",
-    "feur_shadow_elytra:white_dragon_wings",
-    "feur_shadow_elytra:steam_wings",
-    "feur_shadow_elytra:leaf_wings",
-    "feur_shadow_elytra:fairy_wings",
-    "feur_shadow_elytra:parrot_wings",
-    "feur_shadow_elytra:owl_wings",
-    "feur_shadow_elytra:river_wings",
-    "feur_shadow_elytra:light_wings",
-    "feur_shadow_elytra:fire_wings",
-    "feur_shadow_elytra:western_wings",
-    "feur_shadow_elytra:rainbow_wings",
-    "feur_shadow_elytra:flowering_wings"
+    "feur_shadow_elytra:princess_wings_chestplate",
+    "feur_shadow_elytra:phoenix_wings_chestplate",
+    "feur_shadow_elytra:angel_wings_chestplate",
+    "feur_shadow_elytra:black_dragon_wings_chestplate",
+    "feur_shadow_elytra:white_dragon_wings_chestplate",
+    "feur_shadow_elytra:steam_wings_chestplate",
+    "feur_shadow_elytra:leaf_wings_chestplate",
+    "feur_shadow_elytra:fairy_wings_chestplate",
+    "feur_shadow_elytra:parrot_wings_chestplate",
+    "feur_shadow_elytra:owl_wings_chestplate",
+    "feur_shadow_elytra:river_wings_chestplate",
+    "feur_shadow_elytra:light_wings_chestplate",
+    "feur_shadow_elytra:fire_wings_chestplate",
+    "feur_shadow_elytra:western_wings_chestplate",
+    "feur_shadow_elytra:rainbow_wings_chestplate",
+    "feur_shadow_elytra:flowering_wings_chestplate"
   ]
 }
