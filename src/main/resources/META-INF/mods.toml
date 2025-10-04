@@ -1,0 +1,9 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+[[mods]]
+modId="feur_shadow_elytra"
+version="1.0.0"
+displayName="Feur Shadow Elytra"
+description="Adds 16 custom Elytra wings"
+authors="yourname"

@@ -1,0 +1,38 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '6.0.16' // 최신 forge gradle 버전
+    id 'java'
+}
+
+group = 'com.yourname.feurshadowelytra'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    runs {
+        client {
+            workingDirectory file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+        }
+    }
+}
+
+repositories {
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
