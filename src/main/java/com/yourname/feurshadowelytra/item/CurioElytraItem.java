@@ -1,58 +1,28 @@
 package com.yourname.feurshadowelytra.item;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ElytraItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.SlotContext;
+import net.minecraft.world.entity.LivingEntity;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import top.theillusivec4.curios.api.type.capability.SlotContext;
+import net.minecraft.nbt.CompoundTag;
 
 public class CurioElytraItem extends ElytraItem implements ICurioItem {
-    
-    private final String textureName;
-    
-    public CurioElytraItem(Properties properties, String textureName) {
+
+    public CurioElytraItem(Item.Properties properties) {
         super(properties);
-        this.textureName = textureName;
     }
-    
-    public String getTextureName() {
-        return textureName;
-    }
-    
+
     @Override
-    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
+    public boolean canEquip(ItemStack stack, SlotContext slotContext) {
+        // Curios Elytra 슬롯에 착용 가능
         return true;
     }
-    
+
     @Override
-    public boolean canEquip(SlotContext slotContext, ItemStack stack) {
-        return true;
-    }
-    
-    @Override
-    public boolean canUnequip(SlotContext slotContext, ItemStack stack) {
-        return true;
-    }
-    
-    @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        // Elytra tick logic is handled by vanilla in LivingEntity
-    }
-    
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, 
-                                                                         ResourceLocation id, 
-                                                                         ItemStack stack) {
-        return HashMultimap.create();
-    }
-    
-    @Override
-    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
-        return false;
+    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
+        // Elytra 효과가 Curios 슬롯에서도 동작하도록(필요시 추가)
+        // 기본 ElytraItem이 자동 처리하지만, 확장 필요시 구현
     }
 }
