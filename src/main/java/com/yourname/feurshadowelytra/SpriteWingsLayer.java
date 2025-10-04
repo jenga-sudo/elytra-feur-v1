@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -14,7 +15,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,20 +24,19 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
-import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public class SpriteWingsLayer extends RenderLayer<Player, PlayerModel<Player>> {
+public class SpriteWingsLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
     private static final TagKey<Item> TAG_FORGE_ELYTRA = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "elytra"));
     private static final TagKey<Item> TAG_CURIOS_ELYTRA = TagKey.create(Registries.ITEM, new ResourceLocation("curios", "elytra"));
 
-    public SpriteWingsLayer(RenderLayerParent<Player, PlayerModel<Player>> parent) {
+    public SpriteWingsLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent) {
         super(parent);
     }
 
     @Override
-    public void render(PoseStack pose, MultiBufferSource buffers, int light, Player p, float limb, float limbAmount, float partial, float age, float headYaw, float headPitch) {
+    public void render(PoseStack pose, MultiBufferSource buffers, int light, AbstractClientPlayer p, float limb, float limbAmount, float partial, float age, float headYaw, float headPitch) {
         ItemStack stack = findElytraLike(p);
         if (stack.isEmpty()) return;
 
@@ -90,11 +89,11 @@ public class SpriteWingsLayer extends RenderLayer<Player, PlayerModel<Player>> {
         if (s.getItem() instanceof ElytraItem) return true;
         if (s.is(TAG_FORGE_ELYTRA)) return true;
         if (s.is(TAG_CURIOS_ELYTRA)) return true;
-        Optional<Holder<Item>> h = s.getItemHolder();
-        return h.map(holder -> holder.is(TAG_FORGE_ELYTRA) || holder.is(TAG_CURIOS_ELYTRA)).orElse(false);
+        Holder<Item> h = s.getItemHolder();
+        return h != null && (h.is(TAG_FORGE_ELYTRA) || h.is(TAG_CURIOS_ELYTRA));
     }
 
-    private static ItemStack findElytraLike(Player p) {
+    private static ItemStack findElytraLike(AbstractClientPlayer p) {
         ItemStack chest = p.getInventory().getArmor(2);
         if (isElytraLike(chest)) return chest;
 
