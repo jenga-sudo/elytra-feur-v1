@@ -1,1 +1,6 @@
-{"parent":"item/generated","textures":{"layer0":"feur_shadow_elytra:item/steam_elytra"}}
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "feur_shadow_elytra:item/steam_elytra"
+  }
+}
