@@ -1,5 +1,5 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '6.0.16' // 최신 forge gradle 버전
+    id 'net.minecraftforge.gradle' version '6.0.16'
     id 'java'
 }
 
